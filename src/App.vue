@@ -12,7 +12,9 @@ import { Action } from "vuex-class"
 export default class App extends Vue{
   @Action("setUser") setUser:any ;
   created() {
-    this.setUser(localStorage.tsToken)
+    if (localStorage.tsToken) {
+      this.setUser(localStorage.tsToken)
+    }
   }
 }
 </script>

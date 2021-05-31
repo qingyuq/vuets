@@ -143,18 +143,21 @@ const router = new VueRouter({
 })
 
 router.beforeEach((to:any, from:any, next:any) => {
+  console.log(to);
   const lsLogin = localStorage.tsToken ? true:false
   if(to.path=="/login" || to.path == '/password'){
     next();
-  }else{
+  }else{      
     if(lsLogin){
        const decode:any = jwt_decode(localStorage.tsToken);
        const { key } = decode
        if(hasPermission(key,to)){
         next();
        }else{
-        next('/login')
+        next('/404') //没有权限进去
        }
+    }else{
+      next('/login')
     }
   }
   
